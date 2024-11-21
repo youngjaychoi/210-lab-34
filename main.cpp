@@ -12,7 +12,20 @@ struct Edge {
 
 typedef pair<int, int> Pair;  // Creates alias 'Pair' for the pair<int,int> data type
 
-class Graph {
+string stationName[] = {
+    "Central Power Station",
+    "East Power Station",
+    "West Power Station",
+    "South Power Station",
+    "North Power Station",
+    "Backup Generator",
+    "Transformer Station A",
+    "Transformer Station B",
+    "Solar Power Plant"
+};
+
+class Graph
+{
 public:
     // a vector of vectors of Pairs to represent an adjacency list
     vector<vector<Pair>> adjList;
@@ -40,7 +53,7 @@ public:
         cout << "Power Grid Network Topology:" << endl;
         cout << "================================" << endl;
         for (int i = 0; i < adjList.size(); i++) {
-            cout << "Power Station " << i << " connects to: " << endl;
+            cout << "Power Station " << i << " (" << stationName[i] << ") connects to: " << endl;
             for (Pair v : adjList[i])
                 cout << "    Station " << v.first << " (Capacity: " << v.second << " MW) " << endl;
         }
@@ -52,7 +65,7 @@ public:
         stack<int> s;
         s.push(start);
 
-        cout << "Network Trace (DFS) from station " << start << ":" << endl;
+        cout << "Network Trace (DFS) from station " << start << " (" << stationName[start] << "):" << endl;
         cout << "Purpose: Tracking possible power flow paths through the network" << endl;
         cout << "================================" << endl;
 
@@ -61,13 +74,14 @@ public:
             s.pop();
 
             if (!visit[vertex]) {
-                cout << "Inspecting Station " << vertex << endl;
+                cout << "Inspecting Station " << vertex << " (" << stationName[vertex] << ")" << endl;
                 visit[vertex] = true;
             }
 
             for (auto it = adjList[vertex].begin(); it != adjList[vertex].end(); it++) {
                 if (!visit[it->first]) {
-                    cout << "    Potential spread to Station " << it->first << " (Capacity: " << it->second << " MW)" << endl;
+                    cout << "    Potential spread to Station " << it->first << " (" << stationName[it->first] 
+                        << ") - " << "Capacity: " << it->second << " MW" << endl;
                     s.push(it->first);
                 }
             }
@@ -81,7 +95,7 @@ public:
         q.push(start);
         visit[start] = true;
 
-        cout << "Layer-by-Layer Network Inspection (BFS) from Station " << start << ":" << endl;
+        cout << "Layer-by-Layer Network Inspection (BFS) from Station " << start << " (" << stationName[start] << "):" << endl;
         cout << "Purpose: Analyzing service areas by distance from source" << endl;
         cout << "================================" << endl;
 
