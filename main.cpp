@@ -37,11 +37,11 @@ public:
 
     // Print the graph's adjacency list
     void printGraph() {
-        cout << "Graph's adjacency list:" << endl;
+        cout << "Power Grid Network Topology:" << endl;
         for (int i = 0; i < adjList.size(); i++) {
-            cout << i << " --> ";
+            cout << "Power Station " << i << " connects to: ";
             for (Pair v : adjList[i])
-                cout << "(" << v.first << ", " << v.second << ") ";
+                cout << "Station " << v.first << "(Capacity: " << v.second << " MW) ";
             cout << endl;
         }
     }
@@ -51,14 +51,14 @@ public:
         stack<int> s;
         s.push(start);
 
-        cout << "DFS starting from vertex " << start << ":" << endl;
+        cout << "Network Trace (DFS) from station" << start << ":" << endl;
 
         while (!s.empty()) {
             int vertex = s.top();
             s.pop();
 
             if (!visit[vertex]) {
-                cout << vertex << " ";
+                cout << "Inspecting Station " << vertex << endl;
                 visit[vertex] = true;
             }
 
