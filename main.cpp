@@ -48,6 +48,8 @@ public:
             adjList[src].push_back(make_pair(dest, weight));
             // for an undirected graph, add an edge from dest to src also
             adjList[dest].push_back(make_pair(src, weight));
+
+            this->edges.push_back(edge);
         }
     }
 
@@ -168,8 +170,11 @@ public:
             int x = edge.src;
             int y = edge.dest;
 
-            if (find(x, parent) != find(y, parent)) {
-                unite(x, y);
+            int s1 = find(x, parent);
+            int s2 = find(y, parent);
+
+            if (s1 != s2) {
+                parent[s1] = s2;
                 cout << "Edge from " << x << " to " << y << " with capacity: " << w << " units" << endl;
             }
         }
