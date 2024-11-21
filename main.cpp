@@ -42,8 +42,9 @@ public:
         for (int i = 0; i < adjList.size(); i++) {
             cout << "Power Station " << i << " connects to: " << endl;
             for (Pair v : adjList[i])
-                cout << "    " << "Station " << v.first << " (Capacity: " << v.second << " MW) " << endl;
+                cout << "    Station " << v.first << " (Capacity: " << v.second << " MW) " << endl;
         }
+        cout << endl;
     }
 
     void DFS(int start) {
@@ -52,6 +53,8 @@ public:
         s.push(start);
 
         cout << "Network Trace (DFS) from station " << start << ":" << endl;
+        cout << "Purpose: Tracking possible power flow paths through the network" << endl;
+        cout << "================================" << endl;
 
         while (!s.empty()) {
             int vertex = s.top();
@@ -64,6 +67,7 @@ public:
 
             for (auto it = adjList[vertex].begin(); it != adjList[vertex].end(); it++) {
                 if (!visit[it->first]) {
+                    cout << "    Potential spread to Station " << it->first << " (Capacity: " << it->second << " MW)" << endl;
                     s.push(it->first);
                 }
             }
@@ -78,6 +82,8 @@ public:
         visit[start] = true;
 
         cout << "Layer-by-Layer Network Inspection (BFS) from Station " << start << ":" << endl;
+        cout << "Purpose: Analyzing service areas by distance from source" << endl;
+        cout << "================================" << endl;
 
         while (!q.empty()) {
             int vertex = q.front();
@@ -87,6 +93,7 @@ public:
             for (auto &neighbor : adjList[vertex]) {
                 if (!visit[neighbor.first]) {
                     visit[neighbor.first] = true;
+                    cout << "    Next service area: Station " << neighbor.first << " (Capacity: " << neighbor.second << " MW)" << endl;
                     q.push(neighbor.first);
                 }
             }
