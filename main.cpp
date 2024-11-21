@@ -31,6 +31,7 @@ class Graph
 public:
     // a vector of vectors of Pairs to represent an adjacency list
     vector<vector<Pair>> adjList;
+    vector<Edge> edges;
 
     // Graph Constructor
     Graph(vector<Edge> const &edges) {
@@ -149,7 +150,9 @@ public:
     }
 
     void kruskalsMST() {
-        sort(edges.begin(), edges.end());
+        sort(edges.begin(), edges.end(), [](Edge a, Edge b) {
+            return a.weight < b.weight;
+        });
 
         vector<int> parent(SIZE, -1);
 
@@ -157,7 +160,27 @@ public:
             if (parent[i] == -1)
                 return i;
             return parent[i] = find(parent[i]);
+        };
+
+        auto unite = [&](int x, int y) {
+            int s1 = find(x);
+            int s2 = find(y);
+            if (s1 != s2)
+                parent[s1] = s2;
+        };
+
+        cout << "Minimum Spanning Tree edges:" << endl;
+        for (auto &edge : edges) {
+            int w = edge.weight;
+            int x = edge.src;
+            int y = edge.dest;
+
+            if (find(x) != find(y)) {
+                unite(x, y);
+                cout << "Edge from " << x << " to " << y << " with capacity: " << w << " units" << endl;
+            }
         }
+        cout << endl;
     }
 };
 
@@ -177,6 +200,7 @@ int main() {
     graph.DFS(0);
     graph.BFS(0);
     graph.dijkstra(0);
+    graph.kruskalsMST();
 
     return 0;
 }
