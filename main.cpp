@@ -1,5 +1,7 @@
 #include <iostream>
 #include <vector>
+#include <queue>
+#include <stack>
 using namespace std;
 
 const int SIZE = 7;
@@ -45,6 +47,9 @@ public:
     }
 };
 
+void DFS(int start);
+void BFS(int start);
+
 int main() {
     // Creates a vector of graph edges/weights
     vector<Edge> edges = {
@@ -59,4 +64,12 @@ int main() {
     graph.printGraph();
 
     return 0;
+}
+
+void DFS(int start) {
+
+}
+
+void BFS(int start) {
+    
 }
