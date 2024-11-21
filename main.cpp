@@ -3,6 +3,7 @@
 #include <queue>
 #include <stack>
 #include <limits>
+#include <algorithm>
 using namespace std;
 
 const int SIZE = 9;
@@ -145,6 +146,18 @@ public:
             cout << start << " -> " << i << " : " << dist[i] << " MW" << endl;
         }
         cout << endl;
+    }
+
+    void kruskalsMST() {
+        sort(edges.begin(), edges.end());
+
+        vector<int> parent(SIZE, -1);
+
+        auto find = [&](int i) {
+            if (parent[i] == -1)
+                return i;
+            return parent[i] = find(parent[i]);
+        }
     }
 };
 
