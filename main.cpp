@@ -102,12 +102,13 @@ public:
         while (!q.empty()) {
             int vertex = q.front();
             q.pop();
-            cout << "Checking Station " << vertex << endl;
+            cout << "Checking Station " << vertex << " (" << stationName[vertex] << ")" << endl;
 
             for (auto &neighbor : adjList[vertex]) {
                 if (!visit[neighbor.first]) {
                     visit[neighbor.first] = true;
-                    cout << "    Next service area: Station " << neighbor.first << " (Capacity: " << neighbor.second << " MW)" << endl;
+                    cout << "    Next service area: Station " << neighbor.first << " (" << stationName[neighbor.first] 
+                        << ") - Capacity: " << neighbor.second << " MW" << endl;
                     q.push(neighbor.first);
                 }
             }
