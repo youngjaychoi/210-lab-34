@@ -149,6 +149,12 @@ public:
         cout << endl;
     }
 
+    int find(int i, vector<int> &parent) {
+        if (parent[i] == -1)
+            return i;
+        return parent[i] = find(parent[i], parent);
+    }
+
     void kruskalsMST() {
         sort(edges.begin(), edges.end(), [](Edge a, Edge b) {
             return a.weight < b.weight;
@@ -156,26 +162,13 @@ public:
 
         vector<int> parent(SIZE, -1);
 
-        auto find = [&](int i) {
-            if (parent[i] == -1)
-                return i;
-            return parent[i] = find(parent[i]);
-        };
-
-        auto unite = [&](int x, int y) {
-            int s1 = find(x);
-            int s2 = find(y);
-            if (s1 != s2)
-                parent[s1] = s2;
-        };
-
         cout << "Minimum Spanning Tree edges:" << endl;
         for (auto &edge : edges) {
             int w = edge.weight;
             int x = edge.src;
             int y = edge.dest;
 
-            if (find(x) != find(y)) {
+            if (find(x, parent) != find(y, parent)) {
                 unite(x, y);
                 cout << "Edge from " << x << " to " << y << " with capacity: " << w << " units" << endl;
             }
