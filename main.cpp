@@ -47,7 +47,7 @@ public:
     }
 
     void DFS(int start) {
-        vector<bool> visit(SIZE, fasle);
+        vector<bool> visit(SIZE, false);
         stack<int> s;
         s.push(start);
 
@@ -62,7 +62,7 @@ public:
                 visit[vertex] = true;
             }
 
-            for (auto it = adjList[vertex].rbegin(); it != adjList[vertex].rend(); it++) {
+            for (auto it = adjList[vertex].begin(); it != adjList[vertex].end(); it++) {
                 if (!visit[it->first]) {
                     s.push(it->first);
                 }
@@ -72,7 +72,26 @@ public:
     }
 
     void BFS(int start) {
-        vector<bool> 
+        vector<bool> visit(SIZE, false);
+        queue<int> q;
+        q.push(start);
+        visit[start] = true;
+
+        cout << "BFS starting from vertex " << start << ":" << endl;
+
+        while (!q.empty()) {
+            int vertex = q.front();
+            q.pop();
+            cout << vertex << " ";
+
+            for (auto &neighbor : adjList[vertex]) {
+                if (!visit[neighbor.first]) {
+                    visit[neighbor.first] = true;
+                    q.push(neighbor.first);
+                }
+            }
+        }
+        cout << endl;
     }
 };
 
@@ -88,6 +107,8 @@ int main() {
 
     // Prints adjacency list representation of graph
     graph.printGraph();
+    graph.DFS(0);
+    graph.BFS(0);
 
     return 0;
 }
