@@ -2,6 +2,7 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include <limits>
 using namespace std;
 
 const int SIZE = 9;
@@ -115,6 +116,18 @@ public:
         }
         cout << endl;
     }
+
+    void dijkstra(int start) {
+        priority_queue<Pair, vector<Pair>, greater<Pair>> pq;
+
+        vector<int> dist(SIZE, numeric_limits<int>::max());
+
+        pq.push(make_pair(0, start));
+        dist[start] = 0;
+
+        while (!pq.empty()) {
+            int u = pq.top().second;
+            pq.pop();
 };
 
 int main() {
@@ -132,6 +145,7 @@ int main() {
     graph.printGraph();
     graph.DFS(0);
     graph.BFS(0);
+    graph.dijkstra(0);
 
     return 0;
 }
