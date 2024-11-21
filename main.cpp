@@ -180,6 +180,52 @@ public:
         }
         cout << endl;
     }
+
+    void menu() {
+        int choice;
+        do {
+            cout << "Water Distribution Network Menu:" << endl;
+            cout << "[1] Display water distribution network" << endl;
+            cout << "[2] Check contaminant spread (BFS)" << endl;
+            cout << "[3] Plan inspection route (DFS)" << endl;
+            cout << "[4] Calculate shortest paths" << endl;
+            cout << "[5] find Minimum Spanning Tree" << endl;
+            cout << "[0] Exit" << endl;
+            cout << "enter your choice: ";
+            cin >> choice;
+
+            switch (choice) {
+                case 1:
+                    cout << endl;
+                    printGraph();
+                    break;
+                case 2:
+                    cout << endl;
+                    BFS(0);
+                    break;
+                case 3:
+                    cout << endl;
+                    DFS(0);
+                    break;
+                case 4:
+                    cout << endl;
+                    dijkstra(0);
+                    break;
+                case 5:
+                    cout << endl;
+                    kruskalsMST();
+                    break;
+                case 0:
+                    cout << endl;
+                    cout << "Exiting..." << endl;
+                    break;
+                default:
+                    cout << endl;
+                    cout << "Invalid choice, try again" << endl;
+                    cout << endl;
+            }
+        } while (choice != 0);
+    }
 };
 
 int main() {
@@ -194,11 +240,7 @@ int main() {
     Graph graph(edges);
 
     // Prints adjacency list representation of graph
-    graph.printGraph();
-    graph.DFS(0);
-    graph.BFS(0);
-    graph.dijkstra(0);
-    graph.kruskalsMST();
+    graph.menu();
 
     return 0;
 }
