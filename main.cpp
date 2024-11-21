@@ -128,6 +128,24 @@ public:
         while (!pq.empty()) {
             int u = pq.top().second;
             pq.pop();
+
+            for (auto &neighbor : adjList[u]) {
+                int v = neighbor.first;
+                int weight = neighbor.second;
+
+                if (dist[v] > dist[u] + weight) {
+                    dist[v] = dist[u] + weight;
+                    pq.push(make_pair(dist[v], v));
+                }
+            }
+        }
+
+        cout << "Shortest path from station " << start << " (" << stationName[start] << "):" << endl;
+        for (int i = 0; i < SIZE; i++) {
+            cout << start << " -> " << i << " : " << dist[i] << " MW" << endl;
+        }
+        cout << endl;
+    }
 };
 
 int main() {
