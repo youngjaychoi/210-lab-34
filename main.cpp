@@ -45,10 +45,36 @@ public:
             cout << endl;
         }
     }
-};
 
-void DFS(int start);
-void BFS(int start);
+    void DFS(int start) {
+        vector<bool> visit(SIZE, fasle);
+        stack<int> s;
+        s.push(start);
+
+        cout << "DFS starting from vertex " << start << ":" << endl;
+
+        while (!s.empty()) {
+            int vertex = s.top();
+            s.pop();
+
+            if (!visit[vertex]) {
+                cout << vertex << " ";
+                visit[vertex] = true;
+            }
+
+            for (auto it = adjList[vertex].rbegin(); it != adjList[vertex].rend(); it++) {
+                if (!visit[it->first]) {
+                    s.push(it->first);
+                }
+            }
+        }
+        cout << endl;
+    }
+
+    void BFS(int start) {
+        vector<bool> 
+    }
+};
 
 int main() {
     // Creates a vector of graph edges/weights
@@ -64,12 +90,4 @@ int main() {
     graph.printGraph();
 
     return 0;
-}
-
-void DFS(int start) {
-
-}
-
-void BFS(int start) {
-    
 }
